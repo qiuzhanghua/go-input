@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 // Select asks the user to select a item from the given list by the number.
@@ -74,6 +75,8 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 			resultErr = err
 			break
 		}
+
+		line = strings.TrimSpace(line)
 
 		// line is empty but default is provided returns it
 		if line == "" && defaultIndex >= 0 {
