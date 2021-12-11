@@ -62,7 +62,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 
 		if line == "" && opts.Required {
 			if !opts.Loop {
-				resultErr = errors.New("go-input.ErrEmpty")
+				resultErr = errors.New(T("go-input.ErrEmpty"))
 				break
 			}
 
