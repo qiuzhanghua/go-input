@@ -30,5 +30,6 @@ var (
 		"go-input.select.not-number":      "%q is not a valid input. Answer by a number.\n\n",
 		"go-input.select.invalid-choice":  "%q is not a valid choice. Choose a number from 1 to %d.\n\n",
 		"go-input.select.invalid-string":  "Failed to validate input string: %s\n\n",
+		"go-input.select.default-exclude": "opt.Default is specified but item does not exist in list",
 	}
 )

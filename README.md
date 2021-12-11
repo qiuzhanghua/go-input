@@ -38,6 +38,22 @@ name, err := ui.Ask(query, &input.Options{
 
 ```
 
+## I10N
+```bash
+go get github.com/qiuzhanghua/i10n
+```
+add local resource to your app, see 
+
+https://github.com/qiuzhanghua/SimpleInput
+
+```golang
+i10n.SetDefaultLang("zh-CN")
+
+// ...
+
+input.T=i10n.T
+```
+
 You can check other examples in [here](/_example).
 
 ## Author

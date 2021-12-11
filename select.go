@@ -39,7 +39,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 		if defaultIndex == -1 {
 			// This error message is not for user
 			// Should be found while development
-			return "", fmt.Errorf("opt.Default is specified but item does not exist in list")
+			return "", errors.New(T("go-input.select.default-exclude"))
 		}
 	}
 
@@ -87,7 +87,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 
 		if line == "" && opts.Required {
 			if !opts.Loop {
-				resultErr = errors.New("go-input.ErrEmpty")
+				resultErr = errors.New(T("go-input.ErrEmpty"))
 				break
 			}
 
