@@ -2,16 +2,17 @@ package input
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"strings"
 )
 
 // Ask asks the user for input using the given query. The response is
 // returned as string. Error is returned based on the given option.
-// If Loop is true, it continue to ask until it receives valid input.
+// If Loop is true, it continues to ask until it receives valid input.
 //
 // If the user sends SIGINT (Ctrl+C) while reading input, it catches
-// it and return it as a error.
+// it and return it as an error.
 func (i *UI) Ask(query string, opts *Options) (string, error) {
 	i.once.Do(i.setDefault)
 
@@ -61,7 +62,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 
 		if line == "" && opts.Required {
 			if !opts.Loop {
-				resultErr = ErrEmpty
+				resultErr = errors.New("go-input.ErrEmpty")
 				break
 			}
 
@@ -69,7 +70,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 			continue
 		}
 
-		// validate input by custom fuction
+		// validate input by custom function
 		validate := opts.validateFunc()
 		if err := validate(line); err != nil {
 			if !opts.Loop {

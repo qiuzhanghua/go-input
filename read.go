@@ -1,6 +1,7 @@
 package input
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -15,11 +16,11 @@ type readOptions struct {
 	maskVal string
 }
 
-// read reads input from UI.Reader
+// read: reads input from UI.Reader
 func (i *UI) read(opts *readOptions) (string, error) {
 	i.once.Do(i.setDefault)
 
-	// sigCh is channel which is watch Interruptted signal (SIGINT)
+	// sigCh is channel which is watch Interrupted signal (SIGINT)
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, os.Interrupt)
 	defer signal.Stop(sigCh)
@@ -34,7 +35,7 @@ func (i *UI) read(opts *readOptions) (string, error) {
 		if opts.mask {
 			f, ok := i.Reader.(*os.File)
 			if !ok {
-				resultErr = fmt.Errorf("reader must be a file")
+				resultErr = fmt.Errorf(T("go-input.read.must-be-file"))
 				return
 			}
 
@@ -54,7 +55,7 @@ func (i *UI) read(opts *readOptions) (string, error) {
 
 	select {
 	case <-sigCh:
-		return "", ErrInterrupted
+		return "", errors.New(T("go-input.ErrInterrupted"))
 	case <-doneCh:
 		return resultStr, resultErr
 	}
@@ -77,7 +78,7 @@ func (i *UI) rawReadline(f *os.File) (string, error) {
 		}
 
 		if buf[0] == 3 {
-			return "", ErrInterrupted
+			return "", errors.New(T("go-input.ErrInterrupted"))
 		}
 
 		if i.mask {

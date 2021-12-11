@@ -1,5 +1,5 @@
 /*
-Package input reads user input at the console. http://github.com/tcnksm/go-input
+Package input reads user input at the console. http://github.com/qiuzhanghua/go-input
 
   ui := &input.UI{
       Writer: os.Stdout,
@@ -8,7 +8,7 @@ Package input reads user input at the console. http://github.com/tcnksm/go-input
 
   query := "What is your name?"
   name, err := ui.Ask(query, &input.Options{
-      Default: "tcnksm",
+      Default: "qiuzhanghua",
       Required: true,
       Loop:     true,
   })
@@ -17,7 +17,6 @@ package input
 
 import (
 	"bufio"
-	"errors"
 	"io"
 	"os"
 	"sync"
@@ -29,17 +28,8 @@ var (
 	defaultWriter = os.Stdout
 	defaultReader = os.Stdin
 
-	// defualtMaskVal is default mask val for read
+	// defaultMaskVal is default mask val for read
 	defaultMaskVal = "*"
-)
-
-var (
-	// Errs are error returned by input functions.
-	// It's useful for handling error from outside of input functions.
-	ErrEmpty       = errors.New("default value is not provided but input is empty")
-	ErrNotNumber   = errors.New("input must be number")
-	ErrOutOfRange  = errors.New("input is out of range")
-	ErrInterrupted = errors.New("interrupted")
 )
 
 // UI is user-interface of input and output.
@@ -92,7 +82,7 @@ type ValidateFunc func(string) error
 
 // Options is structure contains option for input functions.
 type Options struct {
-	// Default is the default value which is used when no thing
+	// Default is the default value which is used when nothing
 	// is input.
 	Default string
 

@@ -2,6 +2,7 @@ package input
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -86,7 +87,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 
 		if line == "" && opts.Required {
 			if !opts.Loop {
-				resultErr = ErrEmpty
+				resultErr = errors.New("go-input.ErrEmpty")
 				break
 			}
 
@@ -98,7 +99,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 		n, err := strconv.Atoi(line)
 		if err != nil {
 			if !opts.Loop {
-				resultErr = ErrNotNumber
+				resultErr = errors.New(T("go-input.ErrNotNumber"))
 				break
 			}
 
@@ -110,7 +111,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 		// Check answer is in range of list
 		if n < 1 || len(list) < n {
 			if !opts.Loop {
-				resultErr = ErrOutOfRange
+				resultErr = errors.New(T("go-input.ErrOutOfRange"))
 				break
 			}
 
