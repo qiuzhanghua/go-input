@@ -129,7 +129,7 @@ func (o *Options) validateFunc() ValidateFunc {
 
 // defaultValidateFunc is default ValidateFunc which does
 // nothing.
-func defaultValidateFunc(input string) error {
+func defaultValidateFunc(string) error {
 	return nil
 }
 

@@ -1,9 +1,10 @@
+//go:build linux || darwin || freebsd
 // +build linux darwin freebsd
 
 package input
 
 import (
-	"fmt"
+	"errors"
 	"os"
 
 	"golang.org/x/crypto/ssh/terminal"
@@ -19,7 +20,7 @@ func (i *UI) rawRead(f *os.File) (string, error) {
 	// into raw mode
 	fd := int(f.Fd())
 	if !terminal.IsTerminal(fd) {
-		return "", fmt.Errorf("file descriptor %d is not a terminal", fd)
+		return "", errors.New(T("go-input.read-unix.not-terminal", fd))
 	}
 
 	oldState, err := terminal.MakeRaw(fd)

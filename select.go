@@ -11,11 +11,11 @@ import (
 // Select asks the user to select a item from the given list by the number.
 // It shows the given query and list to user. The response is returned as string
 // from the list. By default, it checks the input is the number and is not
-// out of range of the list and if not returns error. If Loop is true, it continue to
+// out of range of the list and if not returns error. If Loop is true, it continues to
 // ask until it receives valid input.
 //
 // If the user sends SIGINT (Ctrl+C) while reading input, it catches
-// it and return it as a error.
+// it and return it as an error.
 func (i *UI) Select(query string, list []string, opts *Options) (string, error) {
 	// Set default val
 	i.once.Do(i.setDefault)
@@ -60,11 +60,11 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 
 		// Construct the asking line to input
 		var buf bytes.Buffer
-		buf.WriteString("Enter a number")
+		buf.WriteString(T("go-input.select.enter-number"))
 
 		// Add default val if provided
 		if defaultIndex >= 0 && !opts.HideDefault {
-			buf.WriteString(fmt.Sprintf(" (Default is %d)", defaultIndex+1))
+			buf.WriteString(T("go-input.select.default", defaultIndex+1))
 		}
 
 		buf.WriteString(": ")
@@ -91,7 +91,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 				break
 			}
 
-			fmt.Fprintf(i.Writer, "Input must not be empty. Answer by a number.\n\n")
+			fmt.Fprintf(i.Writer, T("go-input.select.number-empty"))
 			continue
 		}
 
@@ -104,7 +104,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 			}
 
 			fmt.Fprintf(i.Writer,
-				"%q is not a valid input. Answer by a number.\n\n", line)
+				T("go-input.select.not-number", line))
 			continue
 		}
 
@@ -116,8 +116,8 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 			}
 
 			fmt.Fprintf(i.Writer,
-				"%q is not a valid choice. Choose a number from 1 to %d.\n\n",
-				line, len(list))
+				T("go-input.select.invalid-choice",
+					line, len(list)))
 			continue
 		}
 
@@ -129,7 +129,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 				break
 			}
 
-			fmt.Fprintf(i.Writer, "Failed to validate input string: %s\n\n", err)
+			fmt.Fprintf(i.Writer, T("go-input.select.invalid-string", err))
 			continue
 		}
 

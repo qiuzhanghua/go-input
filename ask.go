@@ -30,7 +30,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 		// Construct the instruction to user.
 		var buf bytes.Buffer
 		if !opts.HideOrder || loopCount > 1 {
-			buf.WriteString("\nEnter a value")
+			buf.WriteString(T("go-input.ask.enter-value"))
 		}
 
 		if opts.Default != "" && !opts.HideDefault {
@@ -38,7 +38,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 			if opts.MaskDefault {
 				defaultVal = maskString(defaultVal)
 			}
-			buf.WriteString(fmt.Sprintf(" (Default is %s)", defaultVal))
+			buf.WriteString(T("go-input.ask.default-value", defaultVal))
 		}
 
 		// Display the instruction to user and ask to input.
@@ -66,7 +66,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 				break
 			}
 
-			fmt.Fprintf(i.Writer, "Input must not be empty.\n\n")
+			fmt.Fprintf(i.Writer, T("go-input.ask.ErrInputEmpty"))
 			continue
 		}
 
@@ -78,7 +78,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 				break
 			}
 
-			fmt.Fprintf(i.Writer, "Failed to validate input string: %s\n\n", err)
+			fmt.Fprintf(i.Writer, T("go-input.ask.ErrInputInvalidate", err))
 			continue
 		}
 

@@ -44,7 +44,7 @@ func (i *UI) read(opts *readOptions) (string, error) {
 		} else {
 			line, err := i.bReader.ReadString('\n')
 			if err != nil && err != io.EOF {
-				resultErr = fmt.Errorf("failed to read the input: %s", err)
+				resultErr = errors.New(T("go-input.ErrReadInput", err))
 			}
 
 			resultStr = strings.TrimSuffix(line, LineSep)
@@ -82,12 +82,12 @@ func (i *UI) rawReadline(f *os.File) (string, error) {
 		}
 
 		if i.mask {
-			fmt.Fprintf(i.Writer, i.maskVal)
+			_, _ = fmt.Fprintf(i.Writer, i.maskVal)
 		}
 
 		resultBuf = append(resultBuf, buf[0])
 	}
 
-	fmt.Fprintf(i.Writer, "\n")
+	_, _ = fmt.Fprintf(i.Writer, "\n")
 	return string(resultBuf), nil
 }
