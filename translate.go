@@ -5,7 +5,7 @@ import "fmt"
 type Format func(string, ...interface{}) string
 
 var T Format = func(stringId string, a ...interface{}) string {
-	if format, ok := messages[stringId]; !ok {
+	if format, ok := messages[stringId]; ok {
 		return fmt.Sprintf(format, a...)
 	}
 	return ""
