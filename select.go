@@ -51,7 +51,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 	}
 
 	buf.WriteString("\n")
-	fmt.Fprintf(i.Writer, buf.String())
+	fmt.Fprint(i.Writer, buf.String())
 
 	// resultStr and resultErr are return val of this function
 	var resultStr string
@@ -68,7 +68,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 		}
 
 		buf.WriteString(": ")
-		fmt.Fprintf(i.Writer, buf.String())
+		fmt.Fprint(i.Writer, buf.String())
 
 		// Read user input from reader.
 		line, err := i.read(opts.readOpts())
@@ -91,7 +91,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 				break
 			}
 
-			fmt.Fprintf(i.Writer, T("go-input.select.number-empty"))
+			fmt.Fprint(i.Writer, T("go-input.select.number-empty"))
 			continue
 		}
 
@@ -103,7 +103,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 				break
 			}
 
-			fmt.Fprintf(i.Writer,
+			fmt.Fprint(i.Writer,
 				T("go-input.select.not-number", line))
 			continue
 		}
@@ -115,7 +115,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 				break
 			}
 
-			fmt.Fprintf(i.Writer,
+			fmt.Fprint(i.Writer,
 				T("go-input.select.invalid-choice",
 					line, len(list)))
 			continue
@@ -129,7 +129,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 				break
 			}
 
-			fmt.Fprintf(i.Writer, T("go-input.select.invalid-string", err))
+			fmt.Fprint(i.Writer, T("go-input.select.invalid-string", err))
 			continue
 		}
 
@@ -139,7 +139,7 @@ func (i *UI) Select(query string, list []string, opts *Options) (string, error) 
 	}
 
 	// Insert the new line for next output
-	fmt.Fprintf(i.Writer, "\n")
+	fmt.Fprint(i.Writer, "\n")
 
 	return resultStr, resultErr
 }

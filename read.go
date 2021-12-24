@@ -82,12 +82,12 @@ func (i *UI) rawReadline(f *os.File) (string, error) {
 		}
 
 		if i.mask {
-			_, _ = fmt.Fprintf(i.Writer, i.maskVal)
+			_, _ = fmt.Fprint(i.Writer, i.maskVal)
 		}
 
 		resultBuf = append(resultBuf, buf[0])
 	}
 
-	_, _ = fmt.Fprintf(i.Writer, "\n")
+	_, _ = fmt.Fprint(i.Writer, "\n")
 	return string(resultBuf), nil
 }

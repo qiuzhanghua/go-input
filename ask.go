@@ -43,7 +43,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 
 		// Display the instruction to user and ask to input.
 		buf.WriteString(": ")
-		fmt.Fprintf(i.Writer, buf.String())
+		fmt.Fprint(i.Writer, buf.String())
 
 		// Read user input from UI.Reader.
 		line, err := i.read(opts.readOpts())
@@ -66,7 +66,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 				break
 			}
 
-			fmt.Fprintf(i.Writer, T("go-input.ask.ErrInputEmpty"))
+			fmt.Fprint(i.Writer, T("go-input.ask.ErrInputEmpty"))
 			continue
 		}
 
@@ -78,7 +78,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 				break
 			}
 
-			fmt.Fprintf(i.Writer, T("go-input.ask.ErrInputInvalidate", err))
+			fmt.Fprint(i.Writer, T("go-input.ask.ErrInputInvalidate", err))
 			continue
 		}
 
@@ -88,7 +88,7 @@ func (i *UI) Ask(query string, opts *Options) (string, error) {
 	}
 
 	// Insert the new line for next output
-	fmt.Fprintf(i.Writer, "\n")
+	fmt.Fprint(i.Writer, "\n")
 
 	return resultStr, resultErr
 }
