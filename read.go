@@ -35,7 +35,7 @@ func (i *UI) read(opts *readOptions) (string, error) {
 		if opts.mask {
 			f, ok := i.Reader.(*os.File)
 			if !ok {
-				resultErr = fmt.Errorf(T("go-input.read.must-be-file"))
+				resultErr = errors.New(T("go-input.read.must-be-file"))
 				return
 			}
 

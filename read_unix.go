@@ -1,5 +1,4 @@
 //go:build linux || darwin || freebsd
-// +build linux darwin freebsd
 
 package input
 
@@ -7,7 +6,7 @@ import (
 	"errors"
 	"os"
 
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 )
 
 // LineSep is the separator for windows or unix systems
